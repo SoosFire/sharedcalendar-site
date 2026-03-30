@@ -3,36 +3,330 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SharedCalendar</title>
+    <title>SharedCalendar — Del kalenderen med dem der betyder noget</title>
+    <meta name="description" content="SharedCalendar gør det nemt at dele kalendere med familie, venner og kollegaer. Opret grupper, synkroniser og hold styr på alles planer.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #F5F0EB; color: #2C2C2E; line-height: 1.6; }
-        .container { max-width: 640px; margin: 0 auto; padding: 60px 24px; }
-        h1 { font-size: 2rem; margin-bottom: 8px; }
-        .subtitle { color: #8E8E93; font-size: 1.1rem; margin-bottom: 40px; }
-        .links a { display: block; padding: 16px 20px; background: white; border-radius: 12px; color: #C27044; text-decoration: none; font-weight: 600; margin-bottom: 12px; transition: transform 0.2s; }
-        .links a:hover { transform: translateY(-2px); }
-        .links span { color: #8E8E93; font-weight: 400; font-size: 0.9rem; display: block; margin-top: 2px; }
-        .footer { margin-top: 48px; color: #8E8E93; font-size: 0.85rem; }
+
+        :root {
+            --accent: #C27044;
+            --accent-light: #D4895E;
+            --bg: #F5F0EB;
+            --bg-card: #FFFFFF;
+            --text: #2C2C2E;
+            --text-secondary: #8E8E93;
+            --radius: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            text-align: center;
+            padding: 80px 24px 60px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .hero-icon {
+            width: 96px;
+            height: 96px;
+            background: var(--accent);
+            border-radius: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 32px rgba(194, 112, 68, 0.3);
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            line-height: 1.15;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 40px;
+        }
+
+        .badge-coming-soon {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--text);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .badge-coming-soon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .badge-coming-soon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ── Features ── */
+        .features {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ── How it works ── */
+        .how-it-works {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            text-align: center;
+        }
+
+        .how-it-works h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 48px;
+            letter-spacing: -0.02em;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 32px;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+
+        .step h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ── CTA section ── */
+        .cta-section {
+            text-align: center;
+            padding: 60px 24px 80px;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .cta-section p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid rgba(0,0,0,0.06);
+            padding: 40px 24px;
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: opacity 0.2s;
+        }
+
+        .footer-links a:hover {
+            opacity: 0.7;
+        }
+
+        .footer-copy {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 480px) {
+            .hero { padding: 60px 20px 40px; }
+            .features { padding: 20px 16px 60px; }
+            .feature-card { padding: 24px 20px; }
+            .steps { gap: 24px; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>SharedCalendar</h1>
-        <p class="subtitle">Del kalenderen med dem der betyder noget.</p>
-        <div class="links">
-            <a href="/sharedcalendar-site/privacy">
-                Privacy Policy
-                <span>Privatlivspolitik</span>
-            </a>
-            <a href="/sharedcalendar-site/terms">
-                Terms of Service
-                <span>Servicevilkår</span>
-            </a>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-icon">
+            <span style="color: white;">&#128197;</span>
         </div>
-        <p class="footer">
-            &copy; 2026 Jonas Hansen &middot; <a href="mailto:Jonas0504hansen@gmail.com" style="color: #C27044;">Kontakt</a>
-        </p>
-    </div>
+        <h1>Del kalenderen med dem<br>der <span>betyder noget</span></h1>
+        <p>SharedCalendar samler alles planer ét sted. Opret grupper med familie, venner eller kollegaer — og hold styr på hverdagen sammen.</p>
+        <a href="#" class="badge-coming-soon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Kommer snart til App Store
+        </a>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">&#128101;</div>
+            <h3>Delte grupper</h3>
+            <p>Opret grupper til familien, vennerne eller holdet. Alle kan se hinandens events med det samme.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#128260;</div>
+            <h3>Kalendersynkronisering</h3>
+            <p>Synkroniser din iOS-kalender automatisk. Arbejdsplaner, sport og aftaler — alt samlet ét sted.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#128499;&#65039;</div>
+            <h3>Forslag og afstemninger</h3>
+            <p>Foreslå en event og lad gruppen stemme. Perfekt til fælles planlægning af middage, ture og oplevelser.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#128276;</div>
+            <h3>Notifikationer</h3>
+            <p>Få besked når der oprettes nye events, når nogen stemmer på dit forslag, eller et nyt medlem tilslutter sig.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#127912;</div>
+            <h3>Personlige avatars</h3>
+            <p>Vælg et profilbillede eller en emoji-avatar, så gruppen nemt kan se hvem der står bag hvert event.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#128274;</div>
+            <h3>Privat og sikkert</h3>
+            <p>Dine data deles kun med din gruppe. Vi sælger aldrig dine oplysninger. Du kan slette din konto når som helst.</p>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works">
+        <h2>Kom i gang på 3 trin</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Opret en konto</h3>
+                <p>Tilmeld dig med email eller Sign in with Apple — det tager 10 sekunder.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Start en gruppe</h3>
+                <p>Opret en gruppe og inviter dine folk med et gruppenavn eller kode.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Del jeres kalender</h3>
+                <p>Tilføj events, synkroniser kalendere og hold styr på alles planer.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>Klar til at dele kalenderen?</h2>
+        <p>SharedCalendar lanceres snart til iPhone. Hold dig opdateret!</p>
+        <a href="mailto:Jonas0504hansen@gmail.com" class="badge-coming-soon" style="background: var(--accent);">
+            Skriv til os for early access
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="/privacy">Privatlivspolitik</a>
+            <a href="/terms">Servicevilkar</a>
+            <a href="mailto:Jonas0504hansen@gmail.com">Kontakt</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Jonas Hansen. Alle rettigheder forbeholdes.</p>
+    </footer>
 </body>
 </html>
